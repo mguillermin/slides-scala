@@ -1,0 +1,1061 @@
+<!doctype html>
+<html lang="en">
+
+    <head>
+        <meta charset="utf-8">
+
+        <title>Scala & la programmation fonctionnelle</title>
+
+        <meta name="description" content="A framework for easily creating beautiful presentations using HTML">
+        <meta name="author" content="Hakim El Hattab">
+
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+        <link rel="shortcut icon" href="img/favicon.gif" type="image/x-icon">
+
+        <link rel="stylesheet" href="css/reveal.min.css">
+        <link rel="stylesheet" href="css/theme/serif.css" id="theme">
+
+        <link rel="stylesheet" href="css/scala.css">
+
+        <!-- For syntax highlighting -->
+        <link rel="stylesheet" href="lib/css/zenburn.css">
+
+        <!-- If the query includes 'print-pdf', use the PDF print sheet -->
+        <script>
+            document.write( '<link rel="stylesheet" href="css/print/' + ( window.location.search.match( /print-pdf/gi ) ? 'pdf' : 'paper' ) + '.css" type="text/css" media="print">' );
+        </script>
+
+        <!--[if lt IE 9]>
+        <script src="lib/js/html5shiv.js"></script>
+        <![endif]-->
+    </head>
+
+    <body>
+        <script>
+          (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+          (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+          })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+          ga('create', 'UA-21382091-3', 'matthieuguillermin.fr');
+          ga('send', 'pageview');
+
+        </script>
+
+        <div class="reveal scala">
+
+        <!--
+        http://www.youtube.com/watch?feature=player_embedded&v=ZhuHCtR3xq8#!
+        --- Notes ---
+         Functional programming is "programming with functions"
+         in functional programming, "code is data too" (une fonction peut être manipulée comme une valeur)
+        -->
+
+            <!-- Any section element inside of this container is displayed as a slide -->
+            <div class="slides">
+
+                <section id="home">
+                    <h1><b>Scala</b></h1>
+                    <h3>Programmation fonctionnelle</h3>
+                    <br />
+                    <hr />
+
+                    <h4>Réunion technique - Juin 2013</h4>
+                    <h5>Matthieu Guillermin - Clever Age</h5>
+
+                </section>
+
+                <section id="history">
+                    <h2>Un peu d'histoire</h2>
+
+                    <img alt="Scala logo" src="img/scala_logo.png" />
+
+                    <ul>
+                        <li>Scala = "Scalable Language"</li>
+                        <li>Créé par Martin Odersky à l’EPFL
+                            <ul><li>A l’origine des «Generics» en Java</li></ul>
+                        </li>
+                        <li>Démarrage en 2001</li>
+                        <li>Première release en 2003</li>
+                    </ul>
+                </section>
+                <section id="what-1">
+                    <h2>Qu'est-ce que <strong>Scala</strong> ?</h2>
+
+                    <ul>
+                        <li>Un language de programmation
+                            <ul>
+                                <li>Typage statique</li>
+                                <li>Exécution sur la JVM (ou .Net)</li>
+                                <li>Orienté <strong>objet</strong></li>
+                                <li>et aussi <strong>fonctionnel</strong></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </section>
+
+
+                <section id="what-2">
+                    <h2>Qu'est-ce que <strong>Scala</strong> ?</h2>
+
+                    <ul>
+                        <li>Intéropérable avec Java
+                            <ul>
+                                <li>Appel de code Java depuis Scala</li>
+                                <li>Appel de code Scala depuis Java</li>
+                            </ul>
+                        </li>
+                        <li>Performances équivalentes à Java (JVM)</li>
+                            <ul>
+                                <li><i>performances "brutes"</i></li>
+                            </ul>
+                    </ul>
+
+
+                </section>
+
+                <section id="progfun-title">
+                    <h2>Programmation Fonctionnelle</h2>
+                </section>
+
+                <section id="progfun-base">
+                    <h2>Programmation Fonctionnelle</h2>
+
+                    <ul>
+                        <li>Programmer avec des <b>fonctions</b></li>
+                        <li>Une <b>fonction</b> est une donnée comme les autres :</li>
+                        <ul>
+                            <li>On peut stocker une fonction dans une variable</li>
+                            <li>On peut passer une fonction en paramètre</li>
+                            <li>On peut retourner une fonction</li>
+                        </ul>
+                    </ul>
+                </section>
+
+                <section id="progfun-adv">
+                    <h2>Programmation Fonctionnelle</h2>
+
+                    <ul>
+                        <li><b>Referential transparency</b></li>
+                        <ul>
+                            <li>On peut remplacer une fonction par son résultat sans
+                            modifier le comportement de l'application</li>
+                        </ul>
+                        <li>Fonctions <b>pures</b></li>
+                        <ul>
+                            <li>Déterministe (retourne la même valeur pour les mêmes arguments)</li>
+                            <li>Pas d'effets de bords</li>
+                            <li>Privilégiées dans l'approche fonctionnelle</li>
+                        </ul>
+                    </ul>
+                    <aside class="notes">
+                        Referential transparency = on peut changer une expression par sa valeur sans changer le comportement du programme
+                        Pure = referential transparency / impure = side effects
+                    </aside>
+                </section>
+
+                <section id="progfun-usage">
+                    <h2>Programmation Fonctionnelle</h2>
+
+                    <ul>
+                        <li>Très adapté aux traitements concurrents</li>
+                        <li>Immutabilité</li>
+                        <li>Composabilité</li>
+                        <ul>
+                            <li>« higher-order functions »</li>
+                        </ul>
+                    </ul>
+
+                </section>
+                <section id="immutability-img">
+                    <img src="img/Immutability.png" />
+                </section>
+
+
+                <section id="immutability-1">
+                    <h2><b>Scala</b> & l'immutabilité</h2>
+                    <ul>
+                        <li>Par défaut, tout est <b>immutable</b>
+                            <ul>
+                                <li>Utilisation de <b>val</b> - valeur ( ≠ <b>var</b> - variables)</li>
+                                <li>Equivalent du <code>final</code> en Java</li>
+                                <li>Les classes de base sont immutables</li>
+                            </ul>
+                        </li>
+                        <li>En Java, seules quelques classes de base sont immutables</li>
+                    </ul>
+                </section>
+                <section id="immutability-2">
+                    <h2><b>Scala</b> & l'immutabilité</h2>
+                    <ul>
+                        <li>Avantages pour l'éxécution de code <b>concurrent</b></li>
+                        <ul>
+                            <li>pas de "shared states"</li>
+                            <li>pas besoin de "locks"</li>
+                        </ul>
+                        <li>On limite donc</li>
+                        <ul>
+                            <li>Les risques d'erreurs</li>
+                            <li>Les points de contention</li>
+                        </ul>
+                    </ul>
+                </section>
+
+                <section id="showMeTheCode">
+                    <img src="img/ShowMeTheCode.png" alt="Show me the code"/>
+                </section>
+
+                <section id="repl">
+                    <h2>REPL</h2>
+                    <ul>
+                        <li><strong>R</strong>ead <strong>E</strong>valuate <strong>P</strong>rint <strong>L</strong>oop</li>
+                        <li>L'outil idéal pour <em>jouer</em> avec Scala</li>
+                        <li><i>Tous les languages devraient avoir un REPL</i></li>
+                    </ul>
+                    <br /><br />
+                    <pre><code data-trim>
+$ scala
+Welcome to Scala version 2.10.0 (Java HotSpot(TM) 64-Bit Server VM, Java 1.6.0_45).
+Type in expressions to have them evaluated.
+Type :help for more information.
+
+scala> print("Hello !")
+Hello !
+scala>
+                    </code></pre>
+                </section>
+
+                <section id="type-inference">
+                    <h2>Type inference</h2>
+                    <ul>
+                        <li>Le typage dans Scala est <b>"statique"</b></li>
+                        <li>On peut ommettre certaines informations de type</li>
+                        <ul>
+                            <li>Le compilateur "devine" les types</li>
+                            <li>Moins de code à écrire</li>
+                        </ul>
+                        <li>Bénéfices</li>
+                        <ul>
+                            <li>d'un language à typage statique</li>
+                            <li>de la facilité d'écriture d'un language dynamique</li>
+                        </ul>
+                    </ul>
+                </section>
+                <section id="type-inference-img">
+                    <h2>Type inference</h2>
+                    <img src="img/TypeInference.png" />
+                </section>
+
+                <section id="type-inference-demo">
+                    <h2>Type inference</h2>
+                    <br />
+                    <pre><code data-trim>
+
+scala> var name = "Raoul"
+name: String = Raoul
+
+scala> name = 42
+&lt;console>:8: error: type mismatch;
+    found   : Int(42)
+    required: String
+    name = 42
+    ^
+
+scala> val tasks = List("Clean my room", "Quit smoking")
+tasks: List[String] = List(Clean my room, Quit smoking)
+
+scala> val age: Int = "25"
+&lt;console>:7: error: type mismatch;
+    found   : String("25")
+    required: Int
+    val age: Int = "25"
+    ^
+                    </code></pre>
+                </section>
+                <section id="syntax-intro">
+                    <h1>Syntaxe</h1>
+                </section>
+                <section id="syntax-base">
+                    <h2>Syntaxe</h2>
+                    <ul>
+                        <li>Syntaxe simplifiée par rapport à Java</li>
+                        <ul>
+                            <li>points-virgules optionnels</li>
+                            <li>types souvent optionnels</li>
+                            <li>pas d'obligation 1 classe = 1 fichier</li>
+                            <li>paranthèses optionnelles pour les méthodes à 1 seul argument</li>
+                        </ul>
+                        <li>Apports complémentaires</li>
+                        <ul>
+                            <li>support des caractères unicodes</li>
+                            <li>utilisation de "block" où on le souhaite</li>
+                        </ul>
+                    </ul>
+                </section>
+                <section id="syntax-adv">
+                    <h2>Syntaxe</h2>
+                    <ul>
+                        <li><code><b>import</b></code></li>
+                        <ul>
+                            <li>Imports dans des "scopes"</li>
+                            <li>Renommage dans les Imports</li>
+                        </ul>
+                    </ul>
+                    <pre><code class="scala" data-trim>
+package com.acme.controllers
+
+// Importe tous les membres
+import com.acme.models._
+
+// Renommage
+import com.acme.utils.{StringUtils => AcmeStringUtils}
+AcmeStringUtils.split(",")
+
+{
+    import com.acme.search.Engine
+    // Engine n'est disponible que dans les {..}
+    val engine = new Engine()
+}
+                    </code></pre>
+                </section>
+
+                <section id="expression-base">
+                    <h2>Expression</h2>
+                    <ul>
+                        <li>Simple</li>
+                    <pre><code class="scala" data-trim>
+val raoul = "Raoul"
+
+val person = new Person("Maurice")
+                    </code></pre>
+                        <li>Block</li>
+                        <ul>
+                            <li>Valeur = dernière expression du block</li>
+                        </ul>
+                    <pre><code class="scala" data-trim>
+val username = {
+    val email = getEmail()
+    val splitted = email.split("@")
+    splitted(0)
+}
+                    </code></pre>
+                    </ul>
+                </section>
+                <section id="expression-adv">
+                    <h2>Expression</h2>
+                    <pre><code class="scala" data-trim>
+
+// if ... else ...
+val success = if (score >= limit) "success"
+        else "fail"
+
+// for-expression
+val b = for(i <- 1 to 100 if i % 2 == 0)
+        yield i + " bottles"
+
+// try / catch
+val except = try {
+        null.toString()
+    } catch {
+        case e: NullPointerException => "null"
+    }
+                    </code></pre>
+                </section>
+                <section id="function-intro">
+                    <h1>Fonctionnel</h1>
+                </section>
+                <section id="function-def">
+                    <h2>Function</h2>
+                    <ul>
+                        <li>Déclaration d'une fonction = <b>def</b></li>
+                        <pre><code class="scala" data-trim>
+def hello(name: String): String = {
+    "Hello " + name
+}
+                        </code></pre>
+                        <li>Arguments <b>"by name"</b></li>
+                        <pre><code class="scala" data-trim>
+def getName() = {
+    println("inside getName()")
+    "Matthieu"
+}
+
+def hello(name : => String): String = {
+    println("inside hello()")
+    "Hello " + name
+}
+
+scala> hello(getName())
+inside hello()
+inside getName()
+res2: String = Hello Matthieu
+                        </code></pre>
+                    </ul>
+                </section>
+                <section id="function-named-parameters">
+                    <h2>Function</h2>
+                    <ul>
+                        <li>Quelques fonctionnalités pratiques</li>
+                        <ul>
+                            <li>Valeurs par défaut</li>
+                            <li>Paramètres nommés</li>
+                        </ul>
+                    </ul>
+                     <pre><code class="scala" data-trim>
+def complexFunction(a: String, b: Long = 0L, c: Boolean = false, d: String = "default") = {...}
+
+complexFunction("Toto", 1L, true, "coucou")
+
+complexFunction("Toto")
+// <=> complexFunction("Toto", 0L, false, "default")
+
+complexFunction(c = true, a = "Toto")
+// <=> complexFunction("Toto", 0L, true, "default)
+
+                     </code></pre>
+                </section>
+                <section id="function-call">
+                    <h2>Function</h2>
+                    <p>Passage d'une fonction en paramètre</p>
+                     <pre><code class="scala" data-trim>
+def calc(f: (Int) => Int) = {
+    println("Calculating...")
+    f(100)
+}
+calc: (f: Int => Int)Int
+
+def double = (x: Int) => x * 2
+double: Int => Int
+
+//----
+calc(double)
+Calculating...
+res0: Int = 200
+
+calc((x: Int) => x * 2)
+calc(x => x * 2)
+calc(_ * 2)
+                     </code></pre>
+
+                </section>
+                <section id="function-currying">
+                    <h2>Function</h2>
+                    <ul>
+                        <li>Possibilité de <b>Currying</b></li>
+                    </ul>
+                     <pre><code class="scala" data-trim>
+def using(file: => File)(block: File => Unit) = {...}
+using(new File(name)) { f =>
+  ...
+}
+// au lieu de
+using(new File(name), f =>
+  ...
+)
+                     </code></pre>
+                    <ul>
+                        <li>et de <b>Partial Application</b></li>
+                    </ul>
+                     <pre><code class="scala" data-trim>
+def sum(a: Int)(b: Int) = a + b
+
+val sum10 = sum(10)(_)
+// sum10: Int => Int = &lt;function1&gt;
+
+sum10(5)
+// => 15
+                     </code></pre>
+                </section>
+                <section id="higher-order-1">
+                    <h2>Fonctions en paramètres d'autres fonctions</h2>
+                    <pre><code class="scala" data-trim>
+def transactional[T](f: => T): T = {
+    println("beginTransaction")
+    val result = f
+    println("endTransaction")
+    result
+}
+
+val value = transactional {
+    // val h = retrieveFromDatabase()
+    println("retrieveFromDatabase()")
+    "Hello"
+}
+
+beginTransaction
+retrieveFromDatabase()
+endTransaction
+value: String = Hello
+                    </code></pre>
+                </section>
+                <section id="higher-order-2">
+                    <h2>Fonctions en paramètres d'autres fonctions</h2>
+                    <pre><code class="scala" data-trim>
+var cache = Map[String, String]()
+def cached(key: String)(f : => String) = {
+    cache.get(key).getOrElse {
+        val result = f
+        cache = cache + (key -> result)
+        result
+    }
+}
+
+cached("value") {
+    println("computing...")
+    "Hello".reverse
+}
+computing...
+res0: String = olleH
+
+scala&gt; cached("value") {
+    println("computing...")
+    "Hello".reverse
+}
+res1: String = olleH
+                    </code></pre>
+                </section>
+                <section id="object-intro">
+                    <h1>Objet</h1>
+                </section>
+                <section id="class-def">
+                    <h2>Class</h2>
+                    <ul>
+                        <li>Déclaration de classe = constructeur</li>
+                    </ul>
+                    <br />
+                    <pre><code class="scala" data-trim>
+class Person(val lastname: String, val firstname: String = "Marcel") {
+}
+
+scala> val p = new Person("Odersky", "Martin")
+p: Person = Person@68ed8363
+
+scala> val m = new Person("Patulacci")
+m: Person = Person@5d08e435
+
+scala> m.firstname
+Marcel
+
+scala> val n = new Person(firstname="Patrick", lastname="Sébastien")
+n: Person = Person@ea69ae7
+
+scala> n.firstname + " - " + n.lastname
+res2: String = Patrick - Sébastien
+                    </code></pre>
+                </section>
+
+                <section id="trait-def">
+                    <h2>Trait</h2>
+                    <ul>
+                        <li><code><b>Trait</b></code> = mélange entre une interface et une classe abstraite</li>
+                        <li>Peut contenir des implémentations partielles</li>
+                        <li>Permet l'héritage multiple</li>
+                    </ul>
+                    <pre><code class="scala" data-trim>
+trait Versionnable {...}
+trait Taggable {...}
+class Article(author: String) {...}
+
+class CleverArticle(author: String) extends Article(author)
+                    with Versionnable with Taggable {
+...
+}
+                    </code></pre>
+                </section>
+
+                <section id="object-def">
+                    <h2>Singleton</h2>
+                    <ul>
+                        <li>Un syntaxe dédiée aux Singletons : <b><code>object</code></b></li>
+                        <li>Utilisé également comme équivalent aux <code>static</code></li>
+                        <li>
+                    <pre><code class="scala" data-trim>
+object Person {
+    def clearCache() = {
+        ...
+    }
+}
+                    </code></pre>
+                        </li>
+                        <li>Si l'objet a le même nom qu'un classe = <b>companion object</b></li>
+                        <li>il a accès aux membres privés également.</li>
+                    </ul>
+                </section>
+
+                <section id="case-class-def">
+                <h2>Case Class</h2>
+                    <ul>
+                        <li>Classes comme les autres avec :</li>
+                        <ul>
+                            <li><code>val</code> par défaut pour les paramètres</li>
+                            <li><code>equals()</code> par défaut</li>
+                            <li><code>toString()</code> par défaut</li>
+                            <li>Companion object par défaut</li>
+                            <li>Pattern matching</li>
+                        </ul>
+                    </ul>
+                </section>
+                <section id="case-class-demo">
+                    <h2>Case Class</h2>
+
+                    <pre><code class="scala" data-trim>
+// Scala
+case class Person(firstname: String, lastname: String)
+                    </code></pre>
+
+                    <pre><code class="java" data-trim>
+// Java
+class Person {
+    private final String firstname;
+    private final String lastname;
+
+    public Person(String firstname, String lastname) {
+        this.firstname = firstname;
+        this.lastname = lastname;
+    }
+    public String getFirstname() {
+        return this.firstname;
+    }
+    public String getLastname() {
+        return this.firstname;
+    }
+    public String toString() {...}
+    public boolean equals(Object o) {...}
+}
+                    </code></pre>
+
+                </section>
+
+                <section id="steroid">
+                    <img src="img/patternMatching.png" alt="Pattern Matching - Le switch/case on steroids" />
+                </section>
+                <section id="pattern-matching">
+                    <h2>Pattern matching</h2>
+                    <ul>
+                        <li>Switch-case "on steroïds"</li>
+                        <ul>
+                            <li>Extraction de valeurs</li>
+                            <li>Très utilisé avec les <code>case class</code></li>
+                        </ul>
+                    </ul>
+                    <pre><code class="scala" data-trim>
+trait OperatingSystem
+case class Ios(version: Int) extends OperatingSystem
+case class Android(name: String) extends OperatingSystem
+
+def advice(os: OperatingSystem): String = os match {
+    case Ios(7) => "Really up to date !"
+    case Ios(v) if v < 5 => "Update soon !"
+    case Ios(v) => "Fine"
+    case Android("Flan") => "What a terrible name..."
+    case Android(_) => "I don't even want to know the name"
+}
+
+println(advice(Ios(7)))
+println(advice(Ios(3)))
+println(advice(Android("Flan")))
+println(advice(Android("Jelly Bean")))
+                    </code></pre>
+                </section>
+
+                <section id="collections-title">
+                    <h1>Collections</h1>
+                </section>
+
+                <section id="collections-intro">
+                    <h2>Collections</h2>
+                    <ul>
+                        <li>Existent en immutables et mutables</li>
+                        <ul>
+                            <li>Par défaut : immutables</li>
+                        </ul>
+                        <li>On retrouve les types "classiques"</li>
+                        <ul>
+                            <li><b><code>Set()</code></b> - Pas d'éléments en double</li>
+                            <li><b><code>List()</code></b> - Liste chaînée</li>
+                            <li><b><code>Vector()</code></b> - Liste indexée</li>
+                            <li><b><code>Map()</code></b> - Association clé-valeur</li>
+                        </ul>
+                        <li>Illustration des bénéfices de l'approche fonctionnelle</li>
+                    </ul>
+                </section>
+                <section id="collections-immutable">
+                    <h2>Collections</h2>
+                    <img src="img/collectionsImmutables.png" alt="Des collections immutables ! Et l'occupation mémoire alors ?" />
+                    <hr />
+                    <p>Pas de souci, ce sont des<br /> <b>"Persistent data structures"</b></p>
+                </section>
+                <section id="collections-persistent-1">
+                    <img src="img/Purely_functional_list_before.svg" />
+                    <img class="fragment" src="img/Purely_functional_list_after.svg" />
+                </section>
+                <section id="collections-persistent-2">
+                    <img src="img/Purely_functional_tree_before.svg" />
+                    <img class="fragment" src="img/Purely_functional_tree_after.svg" />
+                </section>
+                <section id="collection-api-filter">
+                    <h2>Collection API</h2>
+                    <h3>filter() / filterNot()</h3>
+                    <p>Filtre la collection en fonction d'un prédicat</p>
+                    <pre><code class="scala" data-trim>
+val l = List(1, 2, 3, 4, 5, 6, 7)
+
+def isOdd(i: Int) = (i % 2 == 0)
+l.filter(isOdd)
+// => List(2, 4, 6)
+
+val l = List(1, 2, 3, 4, 5, 6, 7)
+l.filter(item => item < 5)
+// => List(1, 2, 3, 4)
+
+l.filter(_ != 4)
+// => List(1, 2, 3, 5, 6, 7)
+
+                    </code></pre>
+                </section>
+
+                <section id="collection-api-exists">
+                    <h2>Collection API</h2>
+                    <h3>exists / forall</h3>
+                    <p>Effectue des vérifications sur la collection</p>
+                    <pre><code class="scala" data-trim>
+def isOdd(i: Int) = (i % 2 == 0)
+l.exists(isOdd)
+// => true
+
+l.forall(isOdd)
+// => false
+                    </code></pre>
+                </section>
+
+                <section id="collection-api-map">
+                    <h2>Collection API</h2>
+                    <h3>map()</h3>
+                    <p>Transforme les éléments de la collection</p>
+                    <pre><code class="scala" data-trim>
+l.map(_ * 2)
+// => List[Int] = List(2, 4, 6, 8, 10, 12, 14)
+
+l.filter(isOdd).map(_ * 2)
+// => List[Int] = List(4, 8, 12)
+
+l.map(i => "Item " + i)
+// => List[String] = List("Item 1", "Item 2", "Item 3", "Item 4", "Item 5", "Item 6", "Item 7")
+
+val o = List(Ios(6), Ios(7), Android("Flan"))
+o.map(advice)
+// => List[String] = List("Fine", "Really up to date !", "What a terrible name...")
+
+o.map {
+    case Ios(v) => "Ios " + v
+    case Android(n) => n
+}
+// => List[String] = List("Ios 6", "Ios 7", "Flan")
+                    </code></pre>
+                </section>
+
+                <section id="collection-api-map-comparison">
+                    <h2>Collection API</h2>
+                    <h3>map()</h3>
+                    <p>Equivalent en Java</p>
+                    <pre><code class="scala" data-trim>
+// Scala
+val l = List(1, 2, 3, 4, 5, 6, 7)
+l.filter(_ < 5).map("Item " + _)
+                    </code></pre>
+                    <pre><code class="java" data-trim>
+// Java
+List&lt;Integer> l = Arrays.asList(1, 2, 3, 4, 5, 6, 7);
+List&lt;String> result = new ArrayList&lt;String>();
+for (Integer i : l) {
+    if (i < 5) {
+        result.add("Item " + i);
+    }
+}
+return result;
+                    </code></pre>
+                    <p>Bonus, si on change la <code>List()</code> en <code>Set() ou autre</code>, aucune modification du <code>map()</code> en Scala</p>
+                </section>
+                <section id="collection-api-fold">
+                    <h2>Collection API</h2>
+                    <h3>fold() / reduce()</h3>
+                    <pre><code class="scala" data-trim>
+l.foldLeft(0) { (acc, i) => acc + i }
+// l.foldLeft(0)(_ + _)
+// => Int = 28
+
+l.foldLeft("") { (acc, i) => acc + i.toString }
+// => String = 1234567
+
+l.foldRight("") { (i, acc) => acc + i.toString }
+// => String = 7654321
+
+l.reduce(_ + _)
+// => Int = 28
+                    </code></pre>
+                </section>
+
+                <section id="collection-api-adv">
+                    <h2>Collection API</h2>
+                    <h3>partition() / dropWhile() / groupBy() / zip()</h3>
+                    <pre><code class="scala" data-trim>
+l.partition(_ % 2 == 0)
+// => (List[Int], List[Int]) = (List(2, 4, 6),List(1, 3, 5, 7))
+
+l.dropWhile(_ != 4)
+// => List[Int] = List(4, 5, 6, 7)
+
+val s = List("Marcel", "Maurice", "Edouard", "Michel")
+s.groupBy(_.size)
+// => Map[Int,List[String]] = Map(7 -> List(Maurice, Edouard), 6 -> List(Marcel, Michel))
+
+s.zipWithIndex
+// => List[(String, Int)] = List((Marcel,0), (Maurice,1), (Edouard,2), (Michel,3))
+
+l.zip(s)
+// => List[(Int, String)] = List((1,Marcel), (2,Maurice), (3,Edouard), (4,Michel))
+                    </code></pre>
+                </section>
+
+                <section id="collection-map-type">
+                    <h2>Collection API</h2>
+                    <h3>Map()</h3>
+                    <p>Association clé/valeur</code></p>
+                    <pre><code class="scala" data-trim>
+val users = Map(123 -> "Maurice", 353 -> "Raymond", 948 -> "Roger")
+// => Map[Int, String]
+
+users.filter { case (k,v) => v.startsWith("R") }
+// => Map[Int,String] = Map(353 -> Raymond, 948 -> Roger)
+
+users.map { case (k,v) => (k, v.substring(0, 3)) }
+// => Map[Int,String] = Map(123 -> Mau, 353 -> Ray, 948 -> Rog)
+
+users.map { case (k,v) => (k, v.size) }
+// => Map[Int,Int] = Map(123 -> 7, 353 -> 7, 948 -> 5)
+
+users.toList
+// => List[(Int, String)] = List((123,Maurice), (353,Raymond), (948,Roger))
+
+users.getOrElse(4343, "Default Name")
+// => String = Default Name
+                    </code></pre>
+                </section>
+                <section id="other-functional-types">
+                    <h1>Quelques types <b>"fonctionnels"</b></h1>
+                </section>
+                <section id="option-type">
+                    <h2>Le type <code><b>Option[T]</b></code></h2>
+                    <ul>
+                        <li>Avec lui, plus besoin de <code>null</code></li>
+                        <li>Il peut prendre 2 types de valeur :</li>
+                        <ul>
+                            <li><code>None</code> : Donnée absente</li>
+                            <li><code>Some(t)</code> : Donnée présente</li>
+                        </ul>
+                        <li>Utilisation de <code>map()</code>, <code>foreach()</code>, <code>getOrElse()</code></li>
+                        <ul>
+                            <li>On remonte l'<code>Option</code> au maximum</li>
+                            <li>Le code devient plus robuste</li>
+                        </ul>
+                    </ul>
+                </section>
+                <section id="option-type-demo">
+                    <h2>Le type <code><b>Option[T]</b></code></h2>
+                    <pre><code class="scala" data-trim>
+val a: Option[String] = None
+val b: Option[String] = Some("Hello")
+def doSomething(o: Option[String]) = {
+    o.map(_.reverse)
+}
+
+doSomething(a)  // => None
+doSomething(b)  // => Some(olleH)
+
+a.getOrElse("Default value")    // => "Default value"
+b.getOrElse("Default value")    // => "Hello"
+
+val l = List(a,b) // List[Option[String]]
+
+l.flatten    // => List[String] = List(Hello)
+                    </code></pre>
+                </section>
+                <section id="either-type">
+                    <h2>Les types <code><b>Either[A,B]</b></code> et <code><b>Try[T]</b></code></h2>
+                    <ul>
+                        <li>Ressemble à Option[T] mais permet de remonter des erreurs</li>
+                        <li>Un Try[T] peut prendre 2 types de valeurs :</li>
+                        <ul>
+                            <li><code>Success(t: T)</code> en cas de succès</li>
+                            <li><code>Failure(e: Throwable)</code> en cas d'erreur</li>
+                            <li><code>Either</code> est similaire mais n'impose pas le type Throwable</li>
+                        </ul>
+                    </ul>
+                </section>
+                <section id="monad">
+                    <h2>Syntactic Sugar</h2>
+                    <ul>
+                        <li>Les Collections / Option / Try / Future / ... sont des <b>monades</b></li>
+                        <ul>
+                            <li>/!\ si vous le googlez : théorie des catégories</li>
+                        </ul>
+                        <li>Ce qu'il faut en retenir</li>
+                        <ul>
+                            <li>Offrent des méthodes-types : map(), flatMap(), filter()</li>
+                            <li>Bénéficient d'une syntaxe de chainage très simple avec les for-expressions</li>
+                        </ul>
+                    </ul>
+                </section>
+                <section id="monad-demo-try">
+                    <h2>Syntactic Sugar</h2>
+                    <h4>Exemple avec <code>Try</code></h4>
+                    <pre><code class="scala" data-trim>
+import scala.io.Source
+def getURLContent(url: String): Try[Iterator[String]] =
+    for {
+        url <- parseURL(url)
+        connection <- Try(url.openConnection())
+        is <- Try(connection.getInputStream)
+        source = Source.fromInputStream(is)
+    } yield source.getLines()
+
+                    </code></pre>
+                </section>
+                <section id="monad-demo-future">
+                    <h2>Syntactic Sugar</h2>
+                    <h4>Exemple avec <code>Future</code></h4>
+                    <pre><code class="scala" data-trim>
+
+// Make 3 parallel async calls
+val fooFuture = WS.url("http://foo.com").get()
+val barFuture = WS.url("http://bar.com").get()
+val bazFuture = WS.url("http://baz.com").get()
+
+for {
+    foo <- fooFuture
+    bar <- barFuture
+    baz <- bazFuture
+} yield {
+    // Build a Result using foo, bar, and baz
+    Ok(...)
+}
+                    </code></pre>
+                </section>
+                <section id="conclusion-intro">
+                    <h1>Conclusion</h1>
+                </section>
+                <section id="conclusion-oop">
+                    <h2><b>Scala</b> = "Better Java"</h2>
+                    <hr />
+                    <ul>
+                        <li>Scala est <b>complètement objet</b></li>
+                        <ul>
+                            <li>Plus aucun type primitif</li>
+                        </ul>
+                        <li>Nombreux avantages par rapport à Java</li>
+                        <ul>
+                            <li>Trait, Object, Case Class, Constructeurs, Pattern matching, For-expression...</li>
+                            <li>Typage statique + Type Inference = \o/</li>
+                        </ul>
+                    </ul>
+                </section>
+                <section id="conclusion-fp">
+                    <h2><b>Scala</b> = "Fonctionnel"</h2>
+                    <hr />
+                    <ul>
+                        <li>Apporte tous les bénéfices de l'approche fonctionnelle</li>
+                        <ul>
+                            <li>Higher-order functions, Composabilité</li>
+                            <li>Immutabilité</li>
+                        </ul>
+                        <li>Très adapté à la programmation concurrente</li>
+                        <ul>
+                            <li><b>Scala</b>bilité ++</li>
+                            <li>Robustesse</li>
+                        </ul>
+                    </ul>
+                </section>
+                <section id="conclusion-oop-fp">
+                    <h2><b>Scala</b> = "OOP + FP"</h2>
+                    <hr />
+                    <ul>
+                        <li>Permet d'utiliser le meilleur paradigme en fonction des besoins</li>
+                        <ul>
+                            <li>Introduction de la FP progressive</li>
+                        </ul>
+                        <li>Repose sur la JVM</li>
+                        <ul>
+                            <li>Robustesse, performance, outillage</li>
+                            <li>Ecosystème, Librairies</li>
+                        </ul>
+                    </ul>
+                </section>
+                <section id="biblio">
+                    <h2>Ressources</h2>
+                    <ul>
+                        <li>Livres</li>
+                        <ul>
+                            <li>Programming in Scala - <i>Martin Odersky</i></li>
+                            <li>Scala for the impatient - <i>Cary Horstmann</i></li>
+                            <li>Scala in action - <i>Nilanjan Raychaudhuri</i></li>
+                        </ul>
+                        <li>Liens :</li>
+                        <ul>
+                            <li>Twitter Scala School - <a href="http://twitter.github.io/scala_school/">http://twitter.github.io/scala_school/</a></li>
+                            <li>Tutorials sur scala-lang - <a href="http://www.scala-lang.org/node/960">http://www.scala-lang.org/node/960</a></li>
+                            <li>...</li>
+                        </ul>
+                    </ul>
+                </section>
+                <section id="questions">
+                    <img src="img/Questions.png" />
+                    <br /><br />
+                    <hr />
+
+                    <p>
+                        Matthieu Guillermin <br />
+                        Clever Age - Juin 2013 <br />
+                        <a href="http://twitter.com/mguillermin">@mguillermin</a>
+                    </p>
+                </section>
+            </div>
+
+        </div>
+
+        <script src="lib/js/head.min.js"></script>
+        <script src="js/reveal.min.js"></script>
+
+        <script>
+
+            // Full list of configuration options available here:
+            // https://github.com/hakimel/reveal.js#configuration
+            Reveal.initialize({
+                controls: true,
+                progress: true,
+                history: true,
+                center: true,
+
+                theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+                transition: Reveal.getQueryHash().transition || 'fade', // default/cube/page/concave/zoom/linear/fade/none
+
+                // Optional libraries used to extend on reveal.js
+                dependencies: [
+                    { src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+                    { src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+                    { src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+                    { src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+                    { src: 'plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+                    { src: 'plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+                    // { src: 'plugin/search/search.js', async: true, condition: function() { return !!document.body.classList; } }
+                    // { src: 'plugin/remotes/remotes.js', async: true, condition: function() { return !!document.body.classList; } }
+                ]
+            });
+
+        </script>
+
+    </body>
+</html>

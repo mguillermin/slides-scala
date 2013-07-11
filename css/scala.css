@@ -1,0 +1,28 @@
+@import url(http://fonts.googleapis.com/css?family=Andika);
+
+.reveal.scala,
+.reveal.scala h1,
+.reveal.scala h2,
+.reveal.scala h3,
+.reveal.scala h4,
+.reveal.scala h5,
+.reveal.scala h6 {
+    font-family: 'Andika', 'Arial';
+}
+
+.reveal.scala li {
+    margin-top: 0.4em;
+}
+
+.reveal.scala strong,
+.reveal.scala b {
+    color: #BB0000;
+}
+
+.reveal.scala pre {
+    width: 100%;
+}
+
+.reveal.scala pre code {
+    max-height: 450px;
+}
